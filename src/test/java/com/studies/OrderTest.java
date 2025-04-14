@@ -35,6 +35,13 @@ public class OrderTest {
         assertOrderSummary(25.0, 0.0);
     }
 
+    @Test
+    public void shouldCalculateSummaryForTwoItemsWithoutDiscount() throws Exception{
+        order.addItem(new OrderItem("Sabonete", 3.0, 3));
+        order.addItem(new OrderItem("Shampoo", 7.0, 3));
+        assertOrderSummary(30, 0.0);
+    }
+
 
 
 }
