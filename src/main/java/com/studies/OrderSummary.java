@@ -20,7 +20,8 @@ public class OrderSummary {
 
     /**
      * <b>1° Discount Brand:</b> if the order has more than 300.0, the discount is 4%<br><br>
-     * <b>2° Discount Brand:</b> if the order has more than 400.0, the discount is 5%
+     * <b>2° Discount Brand:</b> if the order has more than 800.0, the discount is 6%<br><br>
+     * <b>3° Discount Brand:</b> if the order has more than 1000.0, the discount is 8%<br><br>
      *
      * @return {@code double}
      */

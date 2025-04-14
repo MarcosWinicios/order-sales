@@ -17,8 +17,12 @@ public class Order {
 
         double discount = 0;
 
-        if(totalValue > 300.0) {
+        if(totalValue > 300.0 && totalValue <= 800.0) {
             discount = totalValue * 0.04;
+        }else if (totalValue > 800.0 && totalValue <= 1000.0) {
+            discount = totalValue * 0.06;
+        }else if (totalValue > 1000.0) {
+            discount = totalValue * 0.08;
         }
 
         return new OrderSummary(totalValue, discount);
