@@ -15,8 +15,10 @@ public class OrderTest {
     }
 
     private void assertOrderSummary(double totalValue, double discount) {
-        assertEquals(totalValue, order.getTotalValue(), 0.0001); //O terceiro argument é a precisão/margem de erro
-        assertEquals(discount, order.getDiscount(), 0.0001);
+        OrderSummary summary = order.summary();
+
+        assertEquals(totalValue, summary.getTotalValue(), 0.0001); //O terceiro argument é a precisão/margem de erro
+        assertEquals(discount, summary.getDiscount(), 0.0001);
     }
 
     @Test
@@ -42,6 +44,12 @@ public class OrderTest {
         assertOrderSummary(30, 0.0);
     }
 
+    @Test
+    public void shouldApplyDiscountToFirstBrand() throws Exception{
+        order.addItem(new OrderItem("Creme", 20.0, 20));
+
+        assertOrderSummary(400.0, 16.0);
+    }
 
 
 }
