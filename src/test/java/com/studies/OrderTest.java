@@ -64,5 +64,17 @@ public class OrderTest {
         assertOrderSummary(900.0, 54.0);
     }
 
+    /**
+     * <b>3° Discount Brand:</b> if the order has more than 1000.0, the discount is 8%
+     */
+    @Test
+    public void shouldApplyDiscountToThirdBrand() throws Exception {
+        order.addItem(new OrderItem("Creme", 15.0, 30));
+        order.addItem(new OrderItem("Shampoo", 15.0, 30));
+        order.addItem(new OrderItem("Óleo", 10.0, 30));
+
+        assertOrderSummary(1200.0, 96.0);
+    }
+
 
 }
