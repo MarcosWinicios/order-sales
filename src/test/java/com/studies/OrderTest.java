@@ -44,11 +44,24 @@ public class OrderTest {
         assertOrderSummary(30, 0.0);
     }
 
+    /**
+     * <b>1° Discount Brand:</b> if the order has more than 300.0, the discount is 4%<br><br>
+     */
     @Test
     public void shouldApplyDiscountToFirstBrand() throws Exception{
         order.addItem(new OrderItem("Creme", 20.0, 20));
-
         assertOrderSummary(400.0, 16.0);
+    }
+
+    /**
+     * <b>2° Discount Brand:</b> if the order has more than 800.0, the discount is 6%
+     */
+    @Test
+    public void shouldApplyDiscountToSecondBrand() throws Exception {
+        order.addItem(new OrderItem("Shampoo", 15.0, 30));
+        order.addItem(new OrderItem("Óleo", 15.0, 30));
+
+        assertOrderSummary(900.0, 54.0);
     }
 
 
