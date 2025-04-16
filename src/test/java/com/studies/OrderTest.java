@@ -1,5 +1,10 @@
 package com.studies;
 
+import com.studies.discount.CalculatorDiscountBrand;
+import com.studies.discount.CalculatorDiscountFirstBrand;
+import com.studies.discount.CalculatorDiscountSecondBrand;
+import com.studies.discount.CalculatorDiscountThirdBrand;
+import com.studies.discount.WithoutDiscount;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +16,16 @@ public class OrderTest {
 
     @Before
     public void setUp() {
-        order = new Order();
+        CalculatorDiscountBrand calculatorDiscountBrand =
+                new CalculatorDiscountThirdBrand(
+                        new CalculatorDiscountSecondBrand(
+                                new CalculatorDiscountFirstBrand(
+                                        new WithoutDiscount(null)
+                                )
+                        )
+                );
+
+        order = new Order(calculatorDiscountBrand);
     }
 
     private void assertOrderSummary(double totalValue, double discount) {

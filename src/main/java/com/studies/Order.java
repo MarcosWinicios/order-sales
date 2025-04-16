@@ -1,10 +1,19 @@
 package com.studies;
 
+import com.studies.discount.CalculatorDiscountBrand;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
     List<OrderItem> items =  new ArrayList<>();
+    
+    
+    private CalculatorDiscountBrand calculatorDiscountBrand;
+
+    public Order(CalculatorDiscountBrand calculatorDiscountBrand) {
+        this.calculatorDiscountBrand = calculatorDiscountBrand;
+    }
 
     public void addItem(OrderItem item) {
         items.add(item);
@@ -15,15 +24,7 @@ public class Order {
                 .mapToDouble(item -> item.getUnitValue() * item.getQuantity())
                 .sum();
 
-        double discount = 0;
-
-        if(totalValue > 300.0 && totalValue <= 800.0) {
-            discount = totalValue * 0.04;
-        }else if (totalValue > 800.0 && totalValue <= 1000.0) {
-            discount = totalValue * 0.06;
-        }else if (totalValue > 1000.0) {
-            discount = totalValue * 0.08;
-        }
+        double discount = this.calculatorDiscountBrand.discount(totalValue);
 
         return new OrderSummary(totalValue, discount);
     }
