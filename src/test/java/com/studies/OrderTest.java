@@ -17,8 +17,11 @@ public class OrderTest {
     private void assertOrderSummary(double totalValue, double discount) {
         OrderSummary summary = order.build().summary();
 
-        assertEquals(totalValue, summary.getTotalValue(), 0.0001); //O terceiro argument é a precisão/margem de erro
-        assertEquals(discount, summary.getDiscount(), 0.0001);
+//        assertEquals(totalValue, summary.getTotalValue(), 0.0001); //O terceiro argument é a precisão/margem de erro
+//        assertEquals(discount, summary.getDiscount(), 0.0001);
+
+        assertEquals(new OrderSummary(totalValue, discount), summary);
+
     }
 
     @Test

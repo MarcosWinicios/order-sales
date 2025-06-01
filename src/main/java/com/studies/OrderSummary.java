@@ -1,5 +1,7 @@
 package com.studies;
 
+import java.util.Objects;
+
 public class OrderSummary {
 
     private double totalValue;
@@ -31,5 +33,25 @@ public class OrderSummary {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderSummary summary = (OrderSummary) o;
+        return Double.compare(totalValue, summary.totalValue) == 0 && Double.compare(discount, summary.discount) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(totalValue, discount);
+    }
+
+    @Override
+    public String toString() {
+        return "OrderSummary{" +
+                "totalValue=" + totalValue +
+                ", discount=" + discount +
+                '}';
     }
 }
