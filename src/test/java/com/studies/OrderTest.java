@@ -1,5 +1,6 @@
 package com.studies;
 
+import com.studies.exceptions.InvalidItemQuantity;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,6 +76,11 @@ public class OrderTest {
                 .withItem(10.0, 30);
 
         assertOrderSummary(1200.0, 96.0);
+    }
+
+    @Test(expected = InvalidItemQuantity.class)
+    public void notAcceptOrdersWithNegativeItemQuantity(){
+        order.withItem(0.0, -10);
     }
 
 

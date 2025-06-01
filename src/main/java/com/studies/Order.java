@@ -1,6 +1,7 @@
 package com.studies;
 
 import com.studies.discount.CalculatorDiscountBrand;
+import com.studies.exceptions.InvalidItemQuantity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,15 @@ public class Order {
     }
 
     public void addItem(OrderItem item) {
+        validateItemQuantity(item);
+
         items.add(item);
+    }
+
+    public void validateItemQuantity(OrderItem item) {
+        if(item.getQuantity() < 1) {
+            throw new InvalidItemQuantity();
+        }
     }
 
     public OrderSummary summary(){
