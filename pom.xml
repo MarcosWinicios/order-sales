@@ -26,6 +26,11 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+<!--
+    Para usar essa versão do mockito com Java inferior ao 16 adicionar os seguintes argumentos na execução
+    (-)-add-opens java.base/java.lang=ALL-UNNAMED
+    Não usar em produção, apenas para testes
+-->
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
