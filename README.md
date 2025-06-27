@@ -10,8 +10,8 @@ Tratapse de um pequeno projeto de estudo, onde foram aplicados os conecitos de
 
 # Tecnologias
 - Java 21
-- JUnit 4
-- Mockito 1
+- JUnit 5
+- Mockito 5
 - Maven
 
 ## Regras para lançar um pedido 
