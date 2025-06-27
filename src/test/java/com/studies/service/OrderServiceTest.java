@@ -2,6 +2,7 @@ package com.studies.service;
 
 import com.studies.email.EmailNotifier;
 import com.studies.model.Order;
+import com.studies.model.OrderStatus;
 import com.studies.model.builder.OrderBuilder;
 import com.studies.repository.OrderRepository;
 import com.studies.sms.SmsNotifier;
@@ -67,5 +68,22 @@ public class OrderServiceTest {
     public void mustNotifyBySms() throws Exception {
         orderService.launch(order);
         Mockito.verify(smsNotifier).execute(order);
+    }
+
+    @Test
+    public void mustToPayPendingOrder() throws Exception{
+        Long orderCode = 135L;
+
+        Order pendingOrder = new OrderBuilder()
+                .withStatus(OrderStatus.PENDING)
+                .build();
+
+        Mockito.when(orderRepository.findByCode(orderCode))
+                .thenReturn(pendingOrder);
+
+
+        Order paidOrder = orderService.pay(orderCode);
+
+        assertEquals(OrderStatus.PENDING.PAID, paidOrder.getStatus());
     }
 }

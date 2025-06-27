@@ -1,7 +1,9 @@
 package com.studies.service;
 
 import com.studies.email.EmailNotifier;
+import com.studies.exceptions.OrderStatuInvalidException;
 import com.studies.model.Order;
+import com.studies.model.OrderStatus;
 import com.studies.repository.OrderRepository;
 import com.studies.sms.SmsNotifier;
 
@@ -28,7 +30,13 @@ public class OrderService {
         return tax;
     }
 
-    public Order pay(Long orderCode) {
-        return null;
+    public Order pay(Long code) {
+        Order order = orderRepository.findByCode(code);
+
+        if (!order.getStatus().equals(OrderStatus.PENDING)){
+            throw new OrderStatuInvalidException();
+        }
+        order.setStatus(OrderStatus.PAID);
+        return order;
     }
 }

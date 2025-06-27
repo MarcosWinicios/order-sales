@@ -2,6 +2,7 @@ package com.studies.model.builder;
 
 import com.studies.model.Client;
 import com.studies.model.Order;
+import com.studies.model.OrderStatus;
 
 public class OrderBuilder {
 
@@ -17,6 +18,11 @@ public class OrderBuilder {
 
     public OrderBuilder withValue(double value) {
         this.instance.setValue(value);
+        return this;
+    }
+
+    public OrderBuilder withStatus(OrderStatus status){
+        this.instance.setStatus(status);
         return this;
     }
 
