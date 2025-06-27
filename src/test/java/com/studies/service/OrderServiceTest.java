@@ -1,6 +1,7 @@
 package com.studies.service;
 
 import com.studies.email.EmailNotifier;
+import com.studies.exceptions.OrderStatuInvalidException;
 import com.studies.model.Order;
 import com.studies.model.OrderStatus;
 import com.studies.model.builder.OrderBuilder;
@@ -84,6 +85,20 @@ public class OrderServiceTest {
 
         Order paidOrder = orderService.pay(orderCode);
 
-        assertEquals(OrderStatus.PENDING.PAID, paidOrder.getStatus());
+        assertEquals(OrderStatus.PAID, paidOrder.getStatus());
+    }
+
+    @Test(expected = OrderStatuInvalidException.class)
+    public void mustDenyPayment() throws Exception {
+        Long orderCode = 135L;
+
+        Order paidOrder = new OrderBuilder()
+                .withStatus(OrderStatus.PAID)
+                .build();
+
+        Mockito.when(orderRepository.findByCode(orderCode))
+                .thenReturn(paidOrder);
+
+        orderService.pay(orderCode);
     }
 }
