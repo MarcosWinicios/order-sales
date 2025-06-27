@@ -27,4 +27,8 @@ public class OrderService {
 
         return tax;
     }
+
+    public Order pay(Long orderCode) {
+        return null;
+    }
 }
