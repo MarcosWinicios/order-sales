@@ -7,16 +7,20 @@ import com.studies.model.OrderStatus;
 import com.studies.model.builder.OrderBuilder;
 import com.studies.repository.OrderRepository;
 import com.studies.sms.SmsNotifier;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
 
     private OrderService orderService;
@@ -32,7 +36,7 @@ public class OrderServiceTest {
 
     private Order order;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
@@ -88,7 +92,7 @@ public class OrderServiceTest {
         assertEquals(OrderStatus.PAID, paidOrder.getStatus());
     }
 
-    @Test(expected = OrderStatuInvalidException.class)
+    @Test
     public void mustDenyPayment() throws Exception {
         Long orderCode = 135L;
 
@@ -99,6 +103,6 @@ public class OrderServiceTest {
         Mockito.when(orderRepository.findByCode(orderCode))
                 .thenReturn(paidOrder);
 
-        orderService.pay(orderCode);
+        assertThrows(OrderStatuInvalidException.class, () -> orderService.pay(orderCode));
     }
 }
