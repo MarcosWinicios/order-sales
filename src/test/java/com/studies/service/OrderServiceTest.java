@@ -5,7 +5,9 @@ import com.studies.model.builder.OrderBuilder;
 import com.studies.repository.OrderRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,10 +15,14 @@ public class OrderServiceTest {
 
     private OrderService orderService;
 
+    @Mock
+    private OrderRepository orderRepository;
+
     @Before
     public void setUp() {
-        OrderRepository repository = Mockito.mock(OrderRepository.class);
-        orderService = new OrderService(repository);
+        MockitoAnnotations.initMocks(this);
+
+        orderService = new OrderService(orderRepository);
     }
 
     @Test
@@ -38,5 +44,7 @@ public class OrderServiceTest {
                 .build();
 
         orderService.launch(order);
+
+        Mockito.verify(orderRepository).save(order);
     }
 }
