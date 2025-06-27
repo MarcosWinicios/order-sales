@@ -1,10 +1,12 @@
 package com.studies.email;
 
 import com.studies.model.Order;
+import com.studies.service.OrderLaunchAction;
 
-public class EmailNotifier {
+public class EmailNotifier implements OrderLaunchAction {
 
-    public void send(Order order) {
+    @Override
+    public void execute(Order order) {
         System.out.println("Sending email notification for order: "
                 + order.getValue()
                 + " to client: "

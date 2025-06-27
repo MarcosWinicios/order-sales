@@ -5,24 +5,26 @@ import com.studies.model.Order;
 import com.studies.repository.OrderRepository;
 import com.studies.sms.SmsNotifier;
 
+import java.util.List;
+
 public class OrderService {
     
     private OrderRepository orderRepository;
-    private EmailNotifier emailNotifier;
-    private SmsNotifier smsNotifier;
 
-    public OrderService(OrderRepository orderRepository, EmailNotifier emailNotifier, SmsNotifier smsNotifier) {
+    private List<OrderLaunchAction> actions;
+
+    public OrderService(OrderRepository orderRepository, List<OrderLaunchAction> actions) {
         this.orderRepository = orderRepository;
-        this.emailNotifier = emailNotifier;
-        this.smsNotifier = smsNotifier;
+        this.actions = actions;
     }
     
     public double launch(Order order) {
+        double tax = order.getValue() * 0.1;
 
         orderRepository.save(order);
-        emailNotifier.send(order);
-        smsNotifier.send(order);
 
-        return order.getValue() * 0.1;
+        actions.forEach(action -> action.execute(order));
+
+        return tax;
     }
 }

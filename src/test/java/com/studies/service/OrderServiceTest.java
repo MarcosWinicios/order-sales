@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 public class OrderServiceTest {
@@ -31,7 +33,10 @@ public class OrderServiceTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        orderService = new OrderService(orderRepository, emailNotifier, smsNotifier);
+
+        List<OrderLaunchAction> actions = List.of(emailNotifier, smsNotifier);
+
+        orderService = new OrderService(orderRepository, actions);
 
         order =  new OrderBuilder()
                 .withValue(100.0)
@@ -55,12 +60,12 @@ public class OrderServiceTest {
     @Test
     public void mustNotifyByemail() throws Exception{
         orderService.launch(order);
-        Mockito.verify(emailNotifier).send(order);
+        Mockito.verify(emailNotifier).execute(order);
     }
 
     @Test
     public void mustNotifyBySms() throws Exception {
         orderService.launch(order);
-        Mockito.verify(smsNotifier).send(order);
+        Mockito.verify(smsNotifier).execute(order);
     }
 }
