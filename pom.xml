@@ -26,16 +26,25 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-<!--
-    Para usar essa versão do mockito com Java inferior ao 16 adicionar os seguintes argumentos na execução
-    (-)-add-opens java.base/java.lang=ALL-UNNAMED
-    Não usar em produção, apenas para testes
--->
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>1.10.19</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
